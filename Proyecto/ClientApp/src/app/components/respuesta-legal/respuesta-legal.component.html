@@ -1,0 +1,63 @@
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="card">
+        <h4 class="card-header">Respuesta Legal</h4>
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="name" for="second_Surname">Nombre usuario que realizo la solicitud</label>
+                        <input type="text" formControlName="name"  class="form-control" readonly="readonly"
+                            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="col-md-8 col-sm-12">
+                        <label >Respuestas</label>
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                            <table class="table table-bordered table-striped mb-0">
+                              <thead>
+                                <tr>
+                                  <th scope="col">ID</th>
+                                  <th scope="col">Mobre de la solicitud</th>
+                                  <th scope="col">Remitente</th>
+                                  <th scope="col">Seleccionar</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>salario</td>
+                                  <td>Arturo</td>
+                                  <td><a class="btn btn-primary" href="http://localhost:4200/home/respuesta-seleccionada" role="button">Seleccionar</a></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          
+                          </div>
+
+                    </div>
+                    
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="phone">Telefono</label>
+                        <input type="text" formControlName="phone" class="form-control" readonly="readonly" />
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <label for="email">Email</label>
+                        <input type="text" formControlName="email" class="form-control" readonly="readonly"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email format is wrong</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

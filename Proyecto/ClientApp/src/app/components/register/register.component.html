@@ -1,0 +1,88 @@
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="card">
+        <h4 class="card-header">Register</h4>
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="name">Name</label>
+                        <input type="text" formControlName="name" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="first_Surname">First Surname</label>
+                        <input type="text" formControlName="first_Surname" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.first_Surname.errors }" />
+                        <div *ngIf="submitted && f.first_Surname.errors" class="invalid-feedback">
+                            <div *ngIf="f.first_Surname.errors.required">First Surname is required</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="second_Surname">Second Surname</label>
+                        <input type="text" formControlName="second_Surname" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.second_Surname.errors }" />
+                        <div *ngIf="submitted && f.second_Surname.errors" class="invalid-feedback">
+                            <div *ngIf="f.second_Surname.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <label for="adress">Adress</label>
+                        <input type="text" formControlName="adress" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="phone">Phone</label>
+                        <input type="text" formControlName="phone" class="form-control" />
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <label for="email">Email</label>
+                        <input type="text" formControlName="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email format is wrong</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <mat-form-field appearance="fill" style="margin-top: 7%;">
+                            <mat-label for="service">Services</mat-label>
+                            <mat-select [formControl]="service" [(value)]="selected" multiple>
+                                <mat-option *ngFor="let s of servicesList;" value="{{s.service_Id}}">{{s.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="service.hasError('required')">Please choose a service</mat-error>
+
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button [disabled]="loading" class="btn btn-primary">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Sig In
+                    </button>
+                    <a [routerLink]="['../login']" routerLinkActive="router-link-active" class="btn btn-link">Log In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
