@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators,FormControl, FormsModule  } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -7,6 +7,8 @@ import { AlertService } from 'src/app/service/alert.service';
 import { ClientService } from 'src/app/service/client.service';
 import { Service } from 'src/app/models/Service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient } from '@angular/common/http';
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 
 @Component({
   selector: 'app-solicitud',
@@ -40,7 +42,8 @@ export class SolicitudComponent implements OnInit {
     private router: Router,
     private clientService: ClientService,
     private alertService: AlertService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -53,8 +56,9 @@ export class SolicitudComponent implements OnInit {
       first_Surname: ['', Validators.required],
       second_Surname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      adress: [''],
-      phone: ['']
+      nombre_solicitud: ['',[Validators.required]],
+      phone: [''],
+      Detalle_solicitud: ['',[Validators.required]]
     });
 
     if (!this.isAddMode) {
@@ -66,8 +70,9 @@ export class SolicitudComponent implements OnInit {
             first_Surname: x.first_Surname,
             second_Surname: x.second_Surname,
             email: x.email,
-            adress: x.adress,
+            nombre_solicitud: x.nombre_solicitud,
             phone: x.phone,
+            Detalle_solicitud: x.Detalle_solicitud,
 
           });
 
@@ -112,4 +117,53 @@ export class SolicitudComponent implements OnInit {
           this.loading = false;
         });
   }
+  
+ //cargar archivos
+ public files: NgxFileDropEntry[] = [];
+
+  public dropped(files: NgxFileDropEntry[]) {
+    this.files = files;
+    for (const droppedFile of files) {
+
+      // Is it a file?
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+
+          // Here you can access the real file
+          console.log(droppedFile.relativePath, file);
+
+          /**
+          // You could upload it like this:
+          const formData = new FormData()
+          formData.append('logo', file, relativePath)
+
+          // Headers
+          const headers = new HttpHeaders({
+            'security-token': 'mytoken'
+          })
+
+          this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
+          .subscribe(data => {
+            // Sanitized logo returned from backend
+          })
+          **/
+
+        });
+      } else {
+        // It was a directory (empty directories are added, otherwise only files)
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
+  }
+
+  public fileOver(event){
+    console.log(event);
+  }
+
+  public fileLeave(event){
+    console.log(event);
+  }
+
 }

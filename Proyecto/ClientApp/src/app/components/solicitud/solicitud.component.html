@@ -6,31 +6,23 @@
                 <div class="form-row">
                     <div class="col-md-6 col-sm-12">
                         <label for="name" for="second_Surname">Nombre usuario</label>
-                        <input type="text" formControlName="name"  class="form-control" readonly="readonly"
-                            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                            <div *ngIf="f.name.errors.required">El nombre es obligatorio</div>
-                        </div>
+                        <input type="text" formControlName="name"  class="form-control" readonly="readonly"/>
+                        
                     </div>
-
                     <div class="col-md-6 col-sm-12">
                         <label  for="second_Surname" >Apellido</label>
-                        <input type="text"  formControlName="second_Surname"  class="form-control" readonly="readonly"
-                            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                            <div *ngIf="f.name.errors.required">Apellido es obligatorio</div>
-                        </div>
+                        <input type="text"  formControlName="second_Surname"  class="form-control" readonly="readonly"/>
+                          
                     </div>
-                
 
                 </div>
                 <div class="form-row">
                 <div class="col-md-6 col-sm-12">
                     <label  >Nombre Solicitud</label>
-                    <input type="text"  class="form-control" 
-                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                        <div *ngIf="f.name.errors.required">El Nombre Solicitud es obligatorio</div>
+                    <input type="text" formControlName="nombre_solicitud"  class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && f.nombre_solicitud.errors }" />
+                    <div *ngIf="submitted && f.nombre_solicitud.errors" class="invalid-feedback">
+                        <div *ngIf="f.nombre_solicitud.errors.required">El Nombre Solicitud es obligatorio</div>
                     </div>
                 </div>
             </div> 
@@ -38,11 +30,11 @@
                 <div class="form-row">
                     <div class="col-md-8 col-sm-12">
                         <label >Detalle de la solicitud</label>
-                        <textarea type="text" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.second_Surname.errors }"rows="8" cols="10" ></textarea>
-                        <div *ngIf="submitted && f.second_Surname.errors" class="invalid-feedback">
-                            <div *ngIf="f.second_Surname.errors.required">El detalle es obligatorio</div>
-                        </div>
+                        <textarea type="text"  type="text" formControlName="Detalle_solicitud"  class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.Detalle_solicitud.errors }"></textarea>
+                    <div *ngIf="submitted && f.Detalle_solicitud.errors" class="invalid-feedback">
+                        <div *ngIf="f.Detalle_solicitud.errors.required">Detalle solicitud is required</div>
+                    </div>
                     </div>
                     
                 </div>
@@ -53,12 +45,7 @@
                     </div>
                     <div class="col-md-8 col-sm-12">
                         <label for="email">Email</label>
-                        <input type="text" formControlName="email" class="form-control" readonly="readonly"
-                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                            <div *ngIf="f.email.errors.required">Email is required</div>
-                            <div *ngIf="f.email.errors.email">Email format is wrong</div>
-                        </div>
+                        <input type="text" formControlName="email" class="form-control" readonly="readonly"/>
                     </div>
                 </div>
                 <div class="form-row">
@@ -86,19 +73,30 @@
 
                     <div class="form-row">
                         <div class="col-md-6 col-sm-12">
+
+                            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+                            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                Optional custom content that replaces the the entire default content.
+                                <button type="button" (click)="openFileSelector()">Browse Files</button>
+                                </ng-template>
+                            </ngx-file-drop>
+
+                            <div class="upload-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="upload-name-style">
+                                        <tr *ngFor="let item of files; let i=index">
+                                            <td><strong>{{ item.relativePath }}</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             
-                            <form action="../../form-result.php" method="post" enctype="multipart/form-data" target="_blank">
-
-                                <p>
-                              
-                                  Sube un archivo:
-                              
-                                  <input type="file" name="archivosubido">
-                              
-                                </p>
-                              
-                              </form>
-
                         </div>
                     </div> 
                     
@@ -108,8 +106,7 @@
                     <button [disabled]="loading" class="btn btn-primary">
                         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                         Enviar solicitud
-                    </button>
-                    
+                    </button>                    
                 </div>
             </form>
         </div>

@@ -22,11 +22,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthHtppInterceptorService } from './service/Interceptor/auth-htpp-interceptor.service';
 import { HomeComponent } from "src/app/components/home/home.component";
 import { NavigationComponent } from './components/navigation/navigation.component';
-
-
-
-
-
+import { FilterPipe } from './pipes/filter.pipe';
+import {NgxFileDropModule} from 'ngx-file-drop';
 
 
 const appRoutes: Routes = [
@@ -41,7 +38,8 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     AlertComponent,
-    NavigationComponent
+    NavigationComponent,
+    FilterPipe
 
   ],
   imports: [
@@ -63,7 +61,8 @@ const appRoutes: Routes = [
     MatSortModule,
     MatSnackBarModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    NgxFileDropModule
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS, useClass:AuthHtppInterceptorService, multi:true

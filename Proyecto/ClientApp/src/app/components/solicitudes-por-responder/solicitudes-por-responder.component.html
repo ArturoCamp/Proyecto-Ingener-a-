@@ -8,22 +8,26 @@
                         <label >Solicitudes</label>
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
 
-                            <table class="table table-bordered table-striped mb-0">
+                            <table id="tabla" class="table table-bordered table-striped mb-0">
                               <thead>
+                                <td colspan="4">
+                                  <input id="buscar" type="text" class="form-control" placeholder="Escriba algo para filtrar" />
+                                </td>
                                 <tr>
                                   <th scope="col">ID</th>
-                                  <th scope="col">Mobre de la solicitud</th>
+                                  <th scope="col">Nombre de la solicitud</th>
                                   <th scope="col">Remitente</th>
                                   <th scope="col">Tipo de la solicitud</th>
                                   <th scope="col">Detalle de la solicitud</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>salario</td>
-                                  <td>Arturo</td>
-                                  <td>Urgente</td>
+                                  <tr *ngFor="let post of posts">
+                                    <td>{{ post.ID }}</td>
+                                    <td>{{ post.Nombre_de_la_solicitud }}</td>
+                                    <td>{{ post.Remitente }}</td>
+                                    <td>{{ post.Tipo_de_la_solicitud }}</td>
+                                    <td>{{ post.Detalle_de_la_solicitud }}</td>                                   
                                   <td><a class="btn btn-primary" href="http://localhost:4200/home/responder-solicitud" role="button">Detalles </a></td>
                                 </tr>
                               </tbody>
@@ -38,4 +42,3 @@
         </div>
     </div>
 </div>
-

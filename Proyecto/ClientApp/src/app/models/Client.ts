@@ -8,4 +8,8 @@ export class Client {
     email : string;
     password : string;
     services : number[];
+    nombre_solicitud: string;
+    Detalle_solicitud: string;
+    remitente: string;
+    respuesta:string;
 }
